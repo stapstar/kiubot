@@ -1745,6 +1745,38 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+
+if (window.Telegram && window.Telegram.WebApp) {
+    window.Telegram.WebApp.initDataUnsafe = {
+        user: { id: 123456789 },
+        chat: null,
+        chat_type: null,
+        query_id: "",
+        auth_date: Math.floor(Date.now() / 1000),
+        hash: ""
+    };
+}
+
+
+        function sendDataToBot() {
+    if (window.Telegram && window.Telegram.WebApp) {
+        const gameData = {
+            taps: gameState.totalClicks,
+            coins: Math.floor(gameState.coins),
+            total_coins: Math.floor(gameState.totalCoins),
+            click_power: gameState.clickValue,
+            click_speed: gameState.upgrades.clickSpeed.level,
+            passive_income: gameState.upgrades.passiveIncome.level,
+            achievements: Object.keys(gameState.achievements).filter(id => gameState.achievements[id].completed)
+        };
+        window.Telegram.WebApp.sendData(JSON.stringify(gameData));
+        window.Telegram.WebApp.close(); // Закрываем WebApp после отправки
+    } else {
+        console.warn("Telegram WebApp API недоступен");
+    }
+}
+
+        
  </script>
 </body>
 </html>
