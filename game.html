@@ -938,6 +938,15 @@
 </div>
 
 
+     <div id="game-container">
+        <h1>KIUCOIN</h1>
+        <p>Тапайте, зарабатывайте монеты и улучшайте клик!</p>
+        <div id="stats">
+            <p>Монеты: <span id="coin-count">0</span></p>
+            <button onclick="tap()">Тап!</button>
+        </div>
+        <button id="save-btn" onclick="sendDataToBot()">Сохранить и выйти</button>
+    </div>
 
 
     <!-- Уведомление -->
@@ -1775,6 +1784,46 @@ if (window.Telegram && window.Telegram.WebApp) {
         console.warn("Telegram WebApp API недоступен");
     }
 }
+
+        let coins = 0;
+        const coinCount = document.getElementById('coin-count');
+
+        function tap() {
+            coins++;
+            coinCount.textContent = coins;
+        }
+
+        function sendDataToBot() {
+            if (window.Telegram && window.Telegram.WebApp) {
+                // Инициализация данных
+                window.Telegram.WebApp.initDataUnsafe = {
+                    user: { id: 123456789 },
+                    chat: null,
+                    chat_type: null,
+                    query_id: "",
+                    auth_date: Math.floor(Date.now() / 1000),
+                    hash: ""
+                };
+
+                // Данные для отправки
+                const gameData = {
+                    taps: coins,
+                    coins: coins,
+                    total_coins: coins,
+                    click_power: 1,
+                    click_speed: 1,
+                    passive_income: 0,
+                    achievements: []
+                };
+
+                // Отправка данных в бота
+                window.Telegram.WebApp.sendData(JSON.stringify(gameData));
+                window.Telegram.WebApp.close(); // Закрываем WebApp
+            } else {
+                console.warn("Telegram WebApp API недоступен");
+                alert("Ошибка: Telegram WebApp API не найден");
+            }
+        }
 
         
  </script>
