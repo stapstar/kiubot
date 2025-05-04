@@ -1364,7 +1364,7 @@ function sendDataToServer() {
 }
 
 // Автосохранение каждые 30 секунд
-setInterval(sendDataToServer, 30000);
+setInterval(sendDataToServer, 5000);
 
 
 
@@ -1683,7 +1683,7 @@ function buyUpgrade(upgradeId) {
 }
 
 // Добавляем автосохранение каждые 30 секунд
-setInterval(saveGame, 30000);
+setInterval(saveGame, 5000);
 
 // Инициализируем игру при загрузке
 document.addEventListener('DOMContentLoaded', initGame);
