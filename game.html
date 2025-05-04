@@ -1341,23 +1341,22 @@ function sendDataToServer() {
     const data = {
         telegram_id: telegramId,
         progress: {
-            tokens: gameState.coins,
-            total_tokens: gameState.totalCoins,
+            tokens: Math.floor(gameState.coins),
+            total_tokens: Math.floor(gameState.totalCoins),
             clicks: gameState.totalClicks
         },
         upgrades: {
-            click_power_level: gameState.upgrades.clickPower.level,
-            click_speed_level: gameState.upgrades.clickSpeed.level,
-            passive_income_level: gameState.upgrades.passiveIncome.level
+            clickPower: gameState.upgrades.clickPower.level,
+            clickSpeed: gameState.upgrades.clickSpeed.level,
+            passiveIncome: gameState.upgrades.passiveIncome.level
         },
-        achievements: {
-            achievement_id: Object.entries(gameState.achievements)
-                .filter(([_, ach]) => ach.completed)
-                .map(([id, _]) => id)
-        }
+        achievements: Object.entries(gameState.achievements)
+            .filter(([_, ach]) => ach.completed)
+            .map(([id, _]) => parseInt(id))
     };
 
-    fetch('https://ваш-сайт.com/api/save_game_data.php', {
+    
+    fetch('https://5b289b6f8bc85bfc3d50b42d05d03d41.serveo.net/api/save_game_data', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
