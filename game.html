@@ -1355,18 +1355,23 @@ function sendDataToServer() {
             .map(([id, _]) => parseInt(id))
     };
 
-    
-    fetch('https://5b289b6f8bc85bfc3d50b42d05d03d41.serveo.net/api/save_game_data', {
+    fetch(' https://abc123.ngrok.io/api/save_game_data', { // Локальный сервер, нгрок
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
-    });
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Ошибка сети');
+        return response.json();
+    })
+    .catch(error => console.error('Ошибка сохранения:', error));
 }
 
-// Автосохранение каждые 30 секунд
-setInterval(sendDataToServer, 5000);
+// Автосохранение каждые 3 секунд
+setInterval(sendDataToServer, 3000);
 
-
+// Сохранять данные при закрытии окна
+window.addEventListener('beforeunload', sendDataToServer);
 
         function completeAchievement(achievementId) {
             const achievement = gameState.achievements[achievementId];
