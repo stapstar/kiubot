@@ -1355,7 +1355,7 @@ function sendDataToServer() {
             .map(([id, _]) => parseInt(id))
     };
 
-    fetch(' https://abc123.ngrok.io/api/save_game_data', { // Локальный сервер, нгрок
+    fetch(' https://d09b-192-121-23-185.ngrok-free.app', { // Локальный сервер, нгрок
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
