@@ -1355,7 +1355,7 @@ function sendDataToServer() {
             .map(([id, _]) => parseInt(id))
     };
 
-    fetch('http://localhost:3000/api/save_game_data', {
+    fetch('https://d09b-192-121-23-185.ngrok-free.app/api/save_game_data', {                
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
