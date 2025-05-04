@@ -1355,7 +1355,7 @@ function sendDataToServer() {
             .map(([id, _]) => parseInt(id))
     };
 
-    fetch(' https://d09b-192-121-23-185.ngrok-free.app', { // Локальный сервер, нгрок
+    fetch('https://d09b-192-121-23-185.ngrok-free.app/api/save_game_data', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -1367,7 +1367,7 @@ function sendDataToServer() {
     .catch(error => console.error('Ошибка сохранения:', error));
 }
 
-// Автосохранение каждые 3 секунд
+// Автосохранение каждые 3 секунды
 setInterval(sendDataToServer, 3000);
 
 // Сохранять данные при закрытии окна
