@@ -1337,7 +1337,7 @@ function updateBonusesUI() {
 
 
 function sendDataToServer() {
-    const telegramId = window.Telegram.WebApp.initDataUnsafe.user.id;
+    const telegramId = window.Telegram.WebApp.initDataUnsafe.user.id.toString(); // Передаем как строку
     const data = {
         telegram_id: telegramId,
         progress: {
@@ -1355,7 +1355,7 @@ function sendDataToServer() {
             .map(([id, _]) => parseInt(id))
     };
 
-    fetch('https://d09b-192-121-23-185.ngrok-free.app/api/save_game_data', {
+    fetch('http://localhost:3000/api/save_game_data', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -1370,9 +1370,8 @@ function sendDataToServer() {
 // Автосохранение каждые 3 секунды
 setInterval(sendDataToServer, 3000);
 
-// Сохранять данные при закрытии окна
+// Сохранение при закрытии окна
 window.addEventListener('beforeunload', sendDataToServer);
-
         function completeAchievement(achievementId) {
             const achievement = gameState.achievements[achievementId];
             if (achievement.completed) return;
